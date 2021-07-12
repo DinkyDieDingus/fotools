@@ -1,0 +1,167 @@
+[{
+        "name": "Luck",
+        "sections": [{
+            "page": 20,
+            "image": "luck.png",
+            "ratio": "3by2"
+        }]
+    },
+    {
+        "name": "Hit Locations & Weapon Range",
+        "sections": [{
+            "page": 28,
+            "image": "hit-locations.png",
+            "ratio": "16by9"
+        }]
+    },
+    {
+        "name": "Action Points (AP)",
+        "sections": [{
+                "title": "AP Uses",
+                "page": 18,
+                "notes": [
+                    "Buy d20s (1-6 AP)",
+                    "Obtain Information (1 AP)",
+                    "Reduce Time (2 AP)",
+                    "Take Additional Minor Action (1 AP)",
+                    "Take Additional Major Action (2 AP)",
+                    "Add Extra Damage (1-3 AP) (Melee/Thrown Only)"
+                ]
+            },
+            {
+                "page": 18,
+                "image": "dice-costs.png",
+                "ratio": "2by1"
+            }
+        ]
+    },
+    {
+        "name": "Weapons",
+        "sections": [{
+                "page": 88
+            },
+            {
+                "title": "Damage Effects",
+                "page": 88
+            },
+            {
+                "title": "Ammunition",
+                "page": 91
+            },
+            {
+                "title": "Small Guns",
+                "page": 95
+            },
+            {
+                "title": "Small Gun Mods",
+                "page": 100
+            },
+            {
+                "title": "Energy Weapons",
+                "page": 101
+            },
+            {
+                "title": "Enerygy Weapon Mods",
+                "page": 104
+            }
+        ]
+    },
+    {
+        "name": "Weapon Complications",
+        "sections": [{
+            "page": 96,
+            "image": "small-guns-complications.png",
+            "ratio": "3by5"
+        }]
+    },
+    {
+        "name": "Perks",
+        "sections": [{
+                "title": "A-F",
+                "page": 59
+            },
+            {
+                "title": "G-N",
+                "page": 64
+            },
+            {
+                "title": "P-T",
+                "page": 68
+            }
+        ]
+    },
+    {
+        "name": "Mysterious Stranger",
+        "sections": [{
+            "page": 67,
+            "image": "mysterious-stranger.png"
+        }]
+    },
+    {
+        "name": "Dogmeat",
+        "sections": [{
+            "page": 63,
+            "image": "dogmeat.png"
+        }]
+    },
+    {
+        "name": "Looting",
+        "sections": [{
+                "title": "Scavenging",
+                "page": 196
+            },
+            {
+                "title": "Obstacles",
+                "page": 198
+            },
+            {
+                "title": "Hazards",
+                "page": 199
+            }
+        ]
+    },
+    {
+        "name": "Loot Tables",
+        "sections": [{
+                "title": "Ammunition",
+                "page": 200
+            },
+            {
+                "title": "Armor",
+                "page": 201
+            },
+            {
+                "title": "Clothes",
+                "page": 201
+            },
+            {
+                "title": "Food",
+                "page": 202
+            },
+            {
+                "title": "Beverages",
+                "page": 203
+            },
+            {
+                "title": "Chems",
+                "page": 204
+            },
+            {
+                "title": "Ranged Weapons",
+                "page": 204
+            },
+            {
+                "title": "Melee Weapons",
+                "page": 206
+            },
+            {
+                "title": "Thrown Weapons",
+                "page": 207
+            },
+            {
+                "title": "Random Valuables",
+                "page": 207
+            }
+        ]
+    }
+]
