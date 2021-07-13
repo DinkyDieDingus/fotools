@@ -1,18 +1,19 @@
 <template>
     <div class="top-bar">
-        <input v-model="pdfLink" class="input"/>
+        <input v-if="!globals.isWebsite" v-model="pdfLink" placeholder="Enter PDF File Path" class="input"/>
         <button class="button is-rounded is-small is-primary" @click="hideAll">Hide All</button>
-        <button class="button is-rounded is-small is-warning" @click="showAll">Show All</button> 
+        <button class="button is-rounded is-small is-warning" @click="showAll">Show All</button>
     </div>
     <div v-masonry="containerId" transition-duration="0.2s" item-selector=".item">
         <div v-masonry-tile class="item" v-for="(shortcut, index) in shortcuts" :key="shortcut.order">
-            <Shortcut class="shortcut" @imageLoaded="redraw" @toggleShow="toggleShow(index)" @changeOrder="alterOrder" :isLast="index === shortcuts.length - 1" :link="pdfLink" :shortcut="shortcut"></Shortcut>
+            <Shortcut class="shortcut" @imageLoaded="redraw" @toggleShow="toggleShow(index)" @changeOrder="alterOrder" :isLast="index === shortcuts.length - 1" :link="settings.pdfLink" :shortcut="shortcut"></Shortcut>
         </div>
     </div>
 </template>
 
 <script>
 import Shortcut from './components/Shortcut.vue';
+import { mapState } from 'vuex';
 
 let shortcuts = require('./data/shortcuts.json');
 for (let i = 0; i < shortcuts.length; i++) {
@@ -27,9 +28,22 @@ export default {
     },
     data: function() {
         return {
-            pdfLink: 'file:///home/sean/Documents/Fallout/Fallout%20Core%20Rulebook%20WEB%20210412.pdf',
             shortcuts
         }
+    },
+    computed:{
+        pdfLink: {
+            get() {
+                return this.$store.state.settings.pdfLink;
+            },
+            set(value) {
+                this.$store.commit('updateSetting', {setting: 'pdfLink', value});
+            }
+        },
+        ...mapState([
+            'settings',
+            'globals'
+        ])
     },
     methods: {
         toggleShow(index) {
@@ -39,6 +53,7 @@ export default {
             });
         },
         hideAll() {
+            console.log('store', this.$store.state.settings);
             for (let shortcut of this.shortcuts) {
                 shortcut.isShowing = false;
             }

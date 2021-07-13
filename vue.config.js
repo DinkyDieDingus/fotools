@@ -1,3 +1,8 @@
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? './' : '/'
+    pluginOptions: {
+        electronBuilder: {
+            preload: 'src/preload.js'
+        }
+    },
+    publicPath: process.env.NODE_ENV === 'development' ? '/' : './'
 }

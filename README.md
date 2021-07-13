@@ -20,5 +20,15 @@ npm run build
 npm run lint
 ```
 
+### Compiles and hot-reloads for electron development
+```
+npm run electron:serve
+```
+
+### Compiles and minifies for electron production
+```
+npm run electron:build
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

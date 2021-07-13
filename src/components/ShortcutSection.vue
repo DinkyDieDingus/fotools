@@ -10,12 +10,15 @@
     </template>
     <div class="entry">
         <p>Page {{ section.page }}</p>
-        <a :href="`${link}#page=${section.page + 2}`">Open in PDF</a>
+        <OpenInPDF :link="link" :page="section.page"/>
     </div>
 </template>
 
 <script>
 import getImagePath from '../js/image.js';
+import globals from '../js/globals.js';
+
+import OpenInPDF from './OpenInPDF.vue';
 
 export default {
   name: 'ShortcutSection',
@@ -23,12 +26,16 @@ export default {
     link: String,
     section: Object
   },
+  components: {
+      OpenInPDF
+  },
   emits: {
       loaded: null
   },
   data: function() {
       return {
-      }
+          globals
+      };
   },
   methods: {
       getImagePath,
@@ -50,6 +57,8 @@ export default {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px dotted grey;
+    padding-bottom: 5px;
+    align-items: center;
 }
 
 .image-container {
