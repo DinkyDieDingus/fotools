@@ -1,7 +1,8 @@
 module.exports = {
     pluginOptions: {
         electronBuilder: {
-            preload: 'src/preload.js'
+            preload: { 'electron/preload.js': 'src/electron/preload.js' },
+            mainProcessFile: 'src/electron/background.js'
         }
     },
     publicPath: process.env.NODE_ENV === 'development' ? '/' : './'
