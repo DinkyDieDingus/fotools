@@ -4,7 +4,8 @@ import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import path from 'path';
-import { exec } from 'child_process';
+import registerIPCEvents from './ipc.js';
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Scheme must be registered before the app is ready
@@ -38,29 +39,7 @@ async function createWindow() {
     }
 }
 
-ipcMain.on('open-pdf', (event, link, browser) => {
-    console.log('using', browser);
-    console.log('opening', link);
-    if (browser === 'firefox') {
-        exec('firefox --newtab --url ' + link, (err, stdout, stderr) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log(stdout);
-            console.log(stderr);
-        });
-    } else if (browser === 'chromium' || browser === 'chrome') {
-        exec(browser + ' ' + link + ' &', (err, stdout, stderr) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log(stdout);
-            console.log(stderr);
-        });
-    }
-});
+registerIPCEvents();
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
