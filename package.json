@@ -5,13 +5,13 @@
     "author": "DinkyDieDingus",
     "description": "Player/GM tools for post apocalyptic table top games",
     "scripts": {
-        "serve": "vue-cli-service serve",
+        "serve": "vue-cli-service serve --mode dev",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
         "electron:build": "vue-cli-service electron:build --mode electron",
-        "electron:serve": "vue-cli-service electron:serve --mode electron",
-        "electron:serve-extra": "mkdir -p dist_electron && cp src/extra/* dist_electron && vue-cli-service electron:serve --mode electron",
-        "website:serve": "vue-cli-service serve --mode website",
+        "electron:serve": "vue-cli-service electron:serve --mode electron-dev",
+        "electron:serve-extra": "mkdir -p dist_electron && cp src/extra/* dist_electron && vue-cli-service electron:serve --mode electron-dev",
+        "website:serve": "vue-cli-service serve --mode website-dev",
         "website:build": "vue-cli-service build --mode website",
         "postinstall": "electron-builder install-app-deps",
         "postuninstall": "electron-builder install-app-deps"
