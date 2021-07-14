@@ -5,6 +5,7 @@ contextBridge.exposeInMainWorld(
         openPDF: (link, browser) => ipcRenderer.send('open-pdf', link, browser),
         getPDFPath: () => ipcRenderer.invoke('get-pdf-path').then(result => {
             return result;
-        })
+        }),
+        platform: process.platform
     }
 );
