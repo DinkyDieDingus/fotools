@@ -10,9 +10,26 @@ import { VueMasonryPlugin } from "vue-masonry/src/masonry-vue3.plugin";
 import globals from './js/globals.js';
 import getSettingsStore from './js/settings.js';
 
+let browser;
+let pdfLink;
+switch (globals.platform) {
+    case 'darwin':
+        browser = 'chrome';
+        pdfLink = globals.isDev ? 'file:///Users/seanspiegl/Dropbox/Fallout Core Rulebook WEB 210412.pdf' : '';
+        break;
+    case 'linux':
+        browser = 'chromium';
+        pdfLink = globals.isDev ? 'file:///home/sean/Documents/Fallout/Fallout%20Core%20Rulebook%20WEB%20210412.pdf': '';
+        break;
+    default:
+        browser = 'chrome';
+        pdfLink = '';
+        break;
+}
+
 const defaultSettings = {
-    browser: 'chromium',
-    pdfLink: globals.isDev ? 'file:///home/sean/Documents/Fallout/Fallout%20Core%20Rulebook%20WEB%20210412.pdf' : ''
+    browser,
+    pdfLink
 };
 
 console.log(globals);

@@ -1,8 +1,10 @@
 <template>
     <div class="top-bar">
-        <input v-if="!globals.isWebsite" v-model="pdfLink" placeholder="Enter PDF File Path" class="input"/>
-        <button class="button is-rounded is-small is-primary" @click="hideAll">Hide All</button>
-        <button class="button is-rounded is-small is-warning" @click="showAll">Show All</button>
+        <PDFSelector class="selector-container"/>
+        <div class='controls-container'>
+            <button class="button is-rounded is-small is-primary" @click="hideAll">Hide All</button>
+            <button class="button is-rounded is-small is-warning" @click="showAll">Show All</button>
+        </div>
     </div>
     <div v-masonry="containerId" transition-duration="0.2s" item-selector=".item">
         <div v-masonry-tile class="item" v-for="(shortcut, index) in shortcuts" :key="shortcut.order">
@@ -13,6 +15,7 @@
 
 <script>
 import Shortcut from './components/Shortcut.vue';
+import PDFSelector from './components/PDFSelector.vue';
 import { mapState } from 'vuex';
 
 let shortcuts = require('./data/shortcuts.json');
@@ -24,7 +27,8 @@ for (let i = 0; i < shortcuts.length; i++) {
 export default {
     name: 'App',
     components: {
-        Shortcut
+        Shortcut,
+        PDFSelector
     },
     data: function() {
         return {
@@ -32,14 +36,6 @@ export default {
         }
     },
     computed:{
-        pdfLink: {
-            get() {
-                return this.$store.state.settings.pdfLink;
-            },
-            set(value) {
-                this.$store.commit('updateSetting', {setting: 'pdfLink', value});
-            }
-        },
         ...mapState([
             'settings',
             'globals'
@@ -53,7 +49,6 @@ export default {
             });
         },
         hideAll() {
-            console.log('store', this.$store.state.settings);
             for (let shortcut of this.shortcuts) {
                 shortcut.isShowing = false;
             }
@@ -98,9 +93,24 @@ export default {
 .top-bar {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
-.top-bar * {
+.selector-container {
+    margin: 0 0.5em 0 0;
+    padding: 0 0.5em 0 0;
+    border-right: solid;
+    border-color: gainsboro;
+}
+
+
+.controls-container {
+    display: flex;
+    align-items: center;
+    
+}
+
+.controls-container * {
     margin: 0.4em;
 }
 

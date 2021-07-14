@@ -1,10 +1,11 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import path from 'path';
-import { exec } from 'child_process';
+import registerIPCEvents from './electron/ipc.js';
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Scheme must be registered before the app is ready
@@ -23,9 +24,11 @@ async function createWindow() {
             // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
             nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
             contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-            preload: path.join(__dirname, 'electron/preload.js')
+            preload: path.join(__dirname, 'preload.js')
         }
     });
+
+    
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // Load the url of the dev server if in development mode
@@ -34,33 +37,12 @@ async function createWindow() {
     } else {
         createProtocol('app')
             // Load the index.html when not in development
-        win.loadURL('app://./index.html')
+        await win.loadURL('app://./index.html')
     }
+    win.webContents.setZoomLevel(-0.5);
 }
 
-ipcMain.on('open-pdf', (event, link, browser) => {
-    console.log('using', browser);
-    console.log('opening', link);
-    if (browser === 'firefox') {
-        exec('firefox --newtab --url ' + link, (err, stdout, stderr) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log(stdout);
-            console.log(stderr);
-        });
-    } else if (browser === 'chromium' || browser === 'chrome') {
-        exec(browser + ' ' + link + ' &', (err, stdout, stderr) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log(stdout);
-            console.log(stderr);
-        });
-    }
-});
+registerIPCEvents();
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
