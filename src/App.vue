@@ -1,11 +1,5 @@
 <template>
-    <div class="top-bar">
-        <PDFSelector class="selector-container"/>
-        <div class='controls-container'>
-            <button class="button is-rounded is-small is-primary" @click="hideAll">Hide All</button>
-            <button class="button is-rounded is-small is-warning" @click="showAll">Show All</button>
-        </div>
-    </div>
+    <ControlBar @hide="hideAll" @show="showAll"/>
     <div v-masonry="containerId" transition-duration="0.2s" item-selector=".item">
         <div v-masonry-tile class="item" v-for="(shortcut, index) in shortcuts" :key="shortcut.order">
             <Shortcut class="shortcut" @imageLoaded="redraw" @toggleShow="toggleShow(index)" @changeOrder="alterOrder" :isLast="index === shortcuts.length - 1" :link="settings.pdfLink" :shortcut="shortcut"></Shortcut>
@@ -15,8 +9,8 @@
 
 <script>
 import Shortcut from './components/Shortcut.vue';
-import PDFSelector from './components/PDFSelector.vue';
 import { mapState } from 'vuex';
+import ControlBar from './components/ControlBar.vue';
 
 let shortcuts = require('./data/shortcuts.json');
 for (let i = 0; i < shortcuts.length; i++) {
@@ -28,7 +22,7 @@ export default {
     name: 'App',
     components: {
         Shortcut,
-        PDFSelector
+        ControlBar
     },
     data: function() {
         return {
@@ -82,12 +76,14 @@ export default {
 </script>
 
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
   flex-direction: column;
+  font-size: 5px;
 }
 
 .top-bar {
