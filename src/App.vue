@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import Shortcut from './components/Shortcut.vue';
+import Shortcut from './components/shortcut/Shortcut.vue';
 import { mapState } from 'vuex';
-import ControlBar from './components/ControlBar.vue';
+import ControlBar from './components/control-bar/ControlBar.vue';
 
 let shortcuts = require('./data/shortcuts.json');
 for (let i = 0; i < shortcuts.length; i++) {

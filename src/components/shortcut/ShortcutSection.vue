@@ -15,9 +15,8 @@
 </template>
 
 <script>
-import getImagePath from '../js/image.js';
-import globals from '../js/globals.js';
-
+import getImagePath from '../../js/image.js';
+import { mapState } from 'vuex';
 import OpenInPDF from './OpenInPDF.vue';
 
 export default {
@@ -34,7 +33,6 @@ export default {
   },
   data: function() {
       return {
-          globals
       };
   },
   methods: {
@@ -46,7 +44,11 @@ export default {
   computed: {
       img() {
           return this.getImagePath(this.section.image);
-      }
+      },
+      ...mapState([
+            'settings',
+            'globals'
+        ])
   }
 }
 </script>
