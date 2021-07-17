@@ -4,7 +4,7 @@ import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import path from 'path';
-import registerIPCEvents from './electron/ipc.js';
+import registerPDFEvents from './electron/pdf-events.js';
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -28,7 +28,7 @@ async function createWindow() {
         }
     });
 
-    
+
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // Load the url of the dev server if in development mode
@@ -42,7 +42,7 @@ async function createWindow() {
     win.webContents.setZoomLevel(-0.5);
 }
 
-registerIPCEvents();
+registerPDFEvents();
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
