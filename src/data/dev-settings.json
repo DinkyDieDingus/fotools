@@ -1,0 +1,14 @@
+{
+    "local": {
+        "pdfLink": "file:///home/sean/Documents/Fallout/Fallout%20Core%20Rulebook%20WEB%20210412.pdf"
+    },
+    "website": {},
+    "darwin": {
+        "browser": "chrome",
+        "pdfLink": "file:///Users/seanspiegl/Dropbox/Fallout Core Rulebook WEB 210412.pdf"
+    },
+    "linux": {
+        "browser": "chromium",
+        "pdfLink": "file:///home/sean/Documents/Fallout/Fallout%20Core%20Rulebook%20WEB%20210412.pdf"
+    }
+}

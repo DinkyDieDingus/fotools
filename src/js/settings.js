@@ -1,9 +1,12 @@
 import globals from './globals.js';
+import CookieStore from './settings-cookie';
+import ElectronStore from './settings-electron';
 
 const getSettingsStore = function() {
-    if (globals.isDev || !globals.isDev) {
-        let CookieStore = require('./settings-cookie.js').default;
-        return new CookieStore;
+    if (!globals.isElectron) {
+        return new CookieStore();
+    } else {
+        return new ElectronStore();
     }
 }
 

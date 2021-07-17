@@ -1,0 +1,14 @@
+{
+    "local": {
+        "pdfLink": ""
+    },
+    "website": {},
+    "darwin": {
+        "browser": "chrome",
+        "pdfLink": "file:///Users/seanspiegl/Dropbox/Fallout Core Rulebook WEB 210412.pdf"
+    },
+    "linux": {
+        "browser": "chromium",
+        "pdfLink": ""
+    }
+}
