@@ -2,6 +2,8 @@ import { createApp } from 'vue';
 import { createStore } from 'vuex';
 import App from './App.vue';
 import './assets/sass/main.scss';
+import '@fortawesome/fontawesome-free/js/fontawesome';
+import '@fortawesome/fontawesome-free/js/solid';
 
 import mitt from 'mitt';
 
@@ -19,7 +21,7 @@ switch (globals.platform) {
         break;
     case 'linux':
         browser = 'chromium';
-        pdfLink = globals.isDev ? 'file:///home/sean/Documents/Fallout/Fallout%20Core%20Rulebook%20WEB%20210412.pdf': '';
+        pdfLink = globals.isDev ? 'file:///home/sean/Documents/Fallout/Fallout%20Core%20Rulebook%20WEB%20210412.pdf' : '';
         break;
     default:
         browser = 'chrome';

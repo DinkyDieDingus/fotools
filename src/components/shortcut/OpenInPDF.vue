@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import globals from '../js/globals.js';
+import { mapState } from 'vuex';
 
 export default {
   name: 'OpenInPDF',
@@ -18,9 +18,14 @@ export default {
   },
   data: function() {
       return {
-          globals
       };
   },
+  computed:{
+        ...mapState([
+            'settings',
+            'globals'
+        ])
+    },
   methods: {
       open() {
           console.log(this.$store.state.settings)
