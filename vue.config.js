@@ -3,7 +3,7 @@ module.exports = {
         electronBuilder: {
             preload: { 'preload': 'src/electron/preload.js' },
             mainProcessFile: 'src/background.js',
-            mainProcessWatch: ['src/background.js', 'src/electron/preload.js', 'src/electron/ipc.js'],
+            mainProcessWatch: ['src/electron/'],
             builderOptions: {
                 productName: 'FoTools',
                 extraResources: [{

@@ -1,16 +1,13 @@
-import Cookies from 'js-cookie';
-
-class CookieSettingsStore {
+class ElectronSettingsStore {
     loadSettings(defaults) {
-        Cookies.defaults.expires = 365;
         let settings = {...defaults };
 
         for (let setting in settings) {
-            let savedSetting = Cookies.get(setting);
+            let savedSetting = window.electron.getSetting(setting);
             if (savedSetting) {
                 settings[setting] = savedSetting;
             } else {
-                Cookies.set(setting, settings[setting]);
+                window.electron.setSetting(setting, settings[setting]);
             }
         }
 
@@ -18,8 +15,8 @@ class CookieSettingsStore {
     }
 
     saveSetting(setting, value) {
-        Cookies.set(setting, value);
+        window.electron.setSetting(setting, value);
     }
 }
 
-export default CookieSettingsStore;
+export default ElectronSettingsStore;

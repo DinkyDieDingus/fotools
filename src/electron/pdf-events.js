@@ -20,7 +20,7 @@ const registerEvents = function() {
 
         switch (process.platform) {
             case 'linux':
-                switch(browser) {
+                switch (browser) {
                     case "chrome":
                     case "chromium":
                         exec(`${browser} "${link}" &`, logErrors);
@@ -39,7 +39,7 @@ const registerEvents = function() {
                 let absPath = path.join(__dirname + redirectFile);
                 fs.writeFileSync(absPath, html);
                 try {
-                    switch(browser) {
+                    switch (browser) {
                         case "chrome":
                             exec(`open -a "Google Chrome" ${absPath}`, logErrors);
                             break;
@@ -51,7 +51,7 @@ const registerEvents = function() {
                     console.error(err);
                     dialog.showErrorBox('Cannot Open PDF', err.message);
                 }
-                
+
         }
     });
 

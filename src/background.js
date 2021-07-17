@@ -4,9 +4,15 @@ import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import path from 'path';
-import registerIPCEvents from './electron/ipc.js';
+import registerPDFEvents from './electron/pdf-events.js';
+import initStore from './electron/settings-store.js';
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
+registerPDFEvents();
+initStore();
+
+console.log('Store Location:', app.getPath('userData'));
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -39,8 +45,6 @@ async function createWindow() {
     }
     win.webContents.setZoomLevel(-0.5);
 }
-
-registerIPCEvents();
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
