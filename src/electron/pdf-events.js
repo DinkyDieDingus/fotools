@@ -37,8 +37,8 @@ const registerEvents = function() {
                     redirectFile = '../../../' + redirectFile;
                 }
                 let absPath = path.join(__dirname + redirectFile);
-                fs.writeFileSync(absPath, html);
                 try {
+                    fs.writeFileSync(absPath, html);
                     switch (browser) {
                         case "chrome":
                             exec(`open -a "Google Chrome" ${absPath}`, logErrors);
@@ -51,7 +51,14 @@ const registerEvents = function() {
                     console.error(err);
                     dialog.showErrorBox('Cannot Open PDF', err.message);
                 }
-
+                break;
+            case 'win32':
+                case "chrome":
+                    exec(`start chrome ${link.replace(/ /g, '%20')}`, logErrors);
+                    break;
+                case "firefox":
+                    exec(`start firefox ${link.replace(/ /g, '%20')}`, logErrors);
+                    break;
         }
     });
 

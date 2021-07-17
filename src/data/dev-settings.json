@@ -10,5 +10,9 @@
     "linux": {
         "browser": "chromium",
         "pdfLink": "file:///home/sean/Documents/Fallout/Fallout%20Core%20Rulebook%20WEB%20210412.pdf"
+    },
+    "win32": {
+        "browser": "chrome",
+        "pdfLink": "file://C:\\Users\\SeanS\\Dropbox\\Fallout Core Rulebook WEB 210412.pdf"
     }
 }
