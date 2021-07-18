@@ -1,9 +1,13 @@
 import Cookies from 'js-cookie';
 
 class CookieSettingsStore {
-    loadSettings(defaults) {
+    constructor(defaults) {
+        this.defaults = defaults;
+    }
+
+    loadSettings() {
         Cookies.defaults.expires = 365;
-        let settings = {...defaults };
+        let settings = {...this.defaults };
 
         for (let setting in settings) {
             let savedSetting = Cookies.get(setting);
@@ -19,6 +23,16 @@ class CookieSettingsStore {
 
     saveSetting(setting, value) {
         Cookies.set(setting, value);
+    }
+
+    resetSettings() {
+        let settings = {...this.defaults };
+
+        for (let setting in settings) {
+            Cookies.set(setting, settings[setting]);
+        }
+
+        return settings;
     }
 }
 

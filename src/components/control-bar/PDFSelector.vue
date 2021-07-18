@@ -4,7 +4,7 @@
             <p class="input">{{ pdfLink ? pdfLink : 'No File Selected' }}</p>
             <button @click="chooseFilePath" :class="{ 'is-loading': waiting }" class="button is-small is-rounded is-link">Choose</button>
         </template>
-        <template v-else-if="!globals.isWebsite">
+        <template v-else>
             <input v-model="pdfLink" placeholder="Enter PDF File Path" class="input"/>
         </template>
     </div>
@@ -59,6 +59,11 @@ export default {
 
 .selector * {
     margin: 0.4em;
+}
+
+.input {
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 </style>

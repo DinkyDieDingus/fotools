@@ -9,11 +9,25 @@ if (isWebsite) {
     platform = window.electron.platform;
 }
 
+let browserList;
+switch (platform) {
+    case 'linux':
+        browserList = ['chromium', 'chrome', 'firefox'];
+        break;
+    case 'darwin':
+        browserList = ['chrome', 'firefox'];
+        break;
+    case 'win32':
+        browserList = ['chrome', 'firefox'];
+        break;
+}
+
 const globals = Object.freeze({
     isDev: process.env.NODE_ENV === 'development',
     isWebsite,
     isElectron,
-    platform
+    platform,
+    browserList: Object.freeze(browserList)
 });
 
 export default globals;

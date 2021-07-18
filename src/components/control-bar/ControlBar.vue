@@ -1,10 +1,11 @@
 <template>
-    <div class="top-bar">
-        <PDFSelector class="selector-container"/>
+    <SettingsMenu ref="settings"/>
+    <div class="top-bar" :class="{'top-bar-divider': globals.isWebsite}">
+        <PDFSelector v-if="!globals.isWebsite" class="selector-container"/>
         <div class='controls-container'>
             <button class="button is-rounded is-small is-primary" @click="hideAll">Hide All</button>
             <button class="button is-rounded is-small is-warning" @click="showAll">Show All</button>
-            <button class="button is-rounded is-small is-link">
+            <button class="button is-rounded is-small is-link" @click="showSettings">
                 <span class="icon is-small"><i class="fas fa-cog"></i></span>
             </button>
         </div>
@@ -13,15 +14,23 @@
 
 <script>
 import PDFSelector from './PDFSelector.vue';
+import SettingsMenu from './SettingsMenu.vue';
+import { mapState } from 'vuex';
 
 export default {
     name: 'ControlBar',
     components: {
-        PDFSelector
+        PDFSelector,
+        SettingsMenu
     },
     data: function() {
         return {
         }
+    },
+    computed:{
+        ...mapState([
+            'globals'
+        ])
     },
     emits: {
         show: null,
@@ -33,6 +42,9 @@ export default {
         },
         showAll() {
             this.$emit('show');
+        },
+        showSettings() {
+            this.$refs.settings.show();
         }
     }
 }
@@ -46,6 +58,13 @@ export default {
     justify-content: space-between;
 }
 
+.top-bar-divider {
+    border-bottom: solid 0.5em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-color: gainsboro;
+}
+
 .selector-container {
     margin: 0 0.5em 0 0;
     padding: 0 0.5em 0 0;
@@ -56,7 +75,6 @@ export default {
 .controls-container {
     display: flex;
     align-items: center;
-    
 }
 
 .controls-container * {

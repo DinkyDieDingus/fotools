@@ -1,6 +1,10 @@
 class ElectronSettingsStore {
-    loadSettings(defaults) {
-        let settings = {...defaults };
+    constructor(defaults) {
+        this.defaults = defaults;
+    }
+
+    loadSettings() {
+        let settings = {...this.defaults };
 
         for (let setting in settings) {
             let savedSetting = window.electron.getSetting(setting);
@@ -16,6 +20,16 @@ class ElectronSettingsStore {
 
     saveSetting(setting, value) {
         window.electron.setSetting(setting, value);
+    }
+
+    resetSettings() {
+        let settings = {...this.defaults };
+
+        for (let setting in settings) {
+            window.electron.setSetting(setting, settings[setting]);
+        }
+
+        return settings;
     }
 }
 

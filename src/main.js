@@ -18,20 +18,23 @@ console.log(globals);
 console.log(defaultSettings);
 
 // settings store
-const settingsStore = getSettingsStore();
+const settingsStore = getSettingsStore(defaultSettings);
 
 // vuex store
 const store = createStore({
     state() {
         return {
             globals: globals,
-            settings: settingsStore.loadSettings(defaultSettings)
+            settings: settingsStore.loadSettings()
         }
     },
     mutations: {
         updateSetting(state, payload) {
             state.settings[payload.setting] = payload.value;
             settingsStore.saveSetting(payload.setting, payload.value);
+        },
+        resetSettings(state) {
+            state.settings = settingsStore.resetSettings();
         }
     }
 

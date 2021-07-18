@@ -43,7 +43,7 @@ async function createWindow() {
             // Load the index.html when not in development
         await win.loadURL('app://./index.html')
     }
-    win.webContents.setZoomLevel(-0.5);
+    //win.webContents.setZoomLevel(-0.5);
 }
 
 // Quit when all windows are closed.

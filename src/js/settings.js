@@ -2,11 +2,11 @@ import globals from './globals.js';
 import CookieStore from './settings-cookie';
 import ElectronStore from './settings-electron';
 
-const getSettingsStore = function() {
+const getSettingsStore = function(defaultSettings) {
     if (!globals.isElectron) {
-        return new CookieStore();
+        return new CookieStore(defaultSettings);
     } else {
-        return new ElectronStore();
+        return new ElectronStore(defaultSettings);
     }
 }
 
