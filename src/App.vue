@@ -5,7 +5,7 @@
     <article class="middle" :style="{'margin-top': topHeight + 'px', 'margin-bottom': bottomHeight + 'px'}">
         <div v-masonry="containerId" transition-duration="0.2s" item-selector=".item">
             <div v-masonry-tile class="item" v-for="(shortcut, index) in shortcuts" :key="shortcut.order">
-                <Shortcut class="shortcut" :index="index" @redraw="redraw"></Shortcut>
+                <Shortcut class="shortcut" :index="index" @redraw="redraw" @change="unsavedChange"></Shortcut>
             </div>
         </div>
     </article>
@@ -60,6 +60,9 @@ export default {
             this.$nextTick(() => {
                 this.$redrawVueMasonry();
             });
+        },
+        unsavedChange() {
+            this.$refs.shortcutBar.unsaved = true;
         }
     }
 }

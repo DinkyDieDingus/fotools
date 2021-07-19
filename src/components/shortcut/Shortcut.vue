@@ -24,7 +24,8 @@ export default {
         ShortcutSection
     },
     emits: {
-        redraw: null
+        redraw: null,
+        change: null
     },
     props: {
         index: Number
@@ -38,11 +39,13 @@ export default {
         changeOrder(relVal) {
             this.$store.commit('reorderShortcuts', {abs: this.index, rel: relVal});
             this.$emit('redraw');
+            this.$emit('change');
         },
         toggleShow() {
             this.isShowing = !this.isShowing;
             this.$store.commit('setShortcutShowing', {idx: this.index, showing: this.isShowing});
             this.$emit('redraw');
+            this.$emit('change');
         },
         imageLoad() {
             this.$emit('redraw');
