@@ -29,6 +29,9 @@ const initStore = function(globals, settingsStore, shortcutStore) {
                 state.shortcuts[payload.abs + payload.rel].order = payload.abs + payload.rel;
                 state.shortcuts[payload.abs] = temp;
                 state.shortcuts[payload.abs].order = payload.abs;
+            },
+            setShortcutShowing(state, payload) {
+                state.shortcuts[payload.idx].isShowing = payload.showing;
             }
         }
 

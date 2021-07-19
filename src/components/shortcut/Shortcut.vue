@@ -10,56 +10,58 @@
             </div>
         </div>
         <div v-if="shortcut.isShowing" class="message-body">
-            <ShortcutSection @loaded="imageLoad" v-for="section in shortcut.sections" :key="section.page" :link="link" :section="section"/>
+            <ShortcutSection @loaded="imageLoad" v-for="section in shortcut.sections" :key="section.page" :link="settings.pdfLink" :section="section"/>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import ShortcutSection from './ShortcutSection.vue';
 export default {
-  name: 'Shortcut',
-  components: {
-      ShortcutSection
-  },
-  emits: {
-      changeOrder: null,
-      toggleShow: null,
-      imageLoaded: null
-  },
-  props: {
-    link: String,
-    shortcut: Object,
-    isLast: Boolean
-  },
-  data: function() {
-      return {
-          isShowing: false
-      }
-  },
-  methods: {
-      changeOrder(relVal) {
-          this.$emit('changeOrder', this.shortcut.order, relVal);
-      },
-      toggleShow() {
-          this.$emit('toggleShow');
-      },
-      imageLoad() {
-          this.$emit('imageLoaded');
-      }
-  },
-  watch: {
-      globalHide(val) {
-          if (val === true) {
-              this.isShowing = false;
-          }
-      },
-      globalShow(val) {
-          if (val === true) {
-              this.isShowing = true;
-          }
-      }
-  }
+    name: 'Shortcut',
+    components: {
+        ShortcutSection
+    },
+    emits: {
+        redraw: null
+    },
+    props: {
+        index: Number
+    },
+    data: function() {
+        return {
+            isShowing: false
+        }
+    },
+    methods: {
+        changeOrder(relVal) {
+            this.$store.commit('reorderShortcuts', {abs: this.index, rel: relVal});
+            this.$emit('redraw');
+        },
+        toggleShow() {
+            this.isShowing = !this.isShowing;
+            this.$store.commit('setShortcutShowing', {idx: this.index, showing: this.isShowing});
+            this.$emit('redraw');
+        },
+        imageLoad() {
+            this.$emit('redraw');
+        }
+    },
+    computed: {
+        ...mapState([
+            'settings'
+        ]),
+        ...mapState({
+            shortcut(state) {
+                this.$emit('redraw');
+                return state.shortcuts[this.index];
+            },
+            isLast(state) {
+                return state.shortcuts.length - 1 === this.index;
+            }
+        })
+    }
 }
 </script>
 

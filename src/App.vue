@@ -1,11 +1,11 @@
 <template>
     <header class="top" ref="top">
-        <ControlBar @hide="hideAll" @show="showAll"/>
+        <ControlBar @hide="setAllShowing(false)" @show="setAllShowing(true)"/>
     </header>
     <article class="middle" :style="{'margin-top': topHeight + 'px', 'margin-bottom': bottomHeight + 'px'}">
         <div v-masonry="containerId" transition-duration="0.2s" item-selector=".item">
             <div v-masonry-tile class="item" v-for="(shortcut, index) in shortcuts" :key="shortcut.order">
-                <Shortcut class="shortcut" @imageLoaded="redraw" @toggleShow="toggleShow(index)" @changeOrder="alterOrder" :isLast="index === shortcuts.length - 1" :link="settings.pdfLink" :shortcut="shortcut"></Shortcut>
+                <Shortcut class="shortcut" :index="index" @redraw="redraw"></Shortcut>
             </div>
         </div>
     </article>
@@ -49,40 +49,17 @@ export default {
             this.topHeight = this.$refs.top.clientHeight;
             this.bottomHeight = this.$refs.bottom.clientHeight;
         },
-        toggleShow(index) {
+        setAllShowing(showing) {
             this.$refs.shortcutBar.unsaved = true;
-            this.shortcuts[index].isShowing = !this.shortcuts[index].isShowing;
-            this.$nextTick(() => {
-                this.redraw();
-            });
-        },
-        hideAll() {
-            this.$refs.shortcutBar.unsaved = true;
-            for (let shortcut of this.shortcuts) {
-                shortcut.isShowing = false;
+            for (let i = 0; i < this.shortcuts.length; i++) {
+                this.$store.commit('setShortcutShowing', {idx: i, showing});
             }
-            this.$nextTick(() => {
-                this.redraw();
-            });
-        },
-        showAll() {
-            this.$refs.shortcutBar.unsaved = true;
-            for (let shortcut of this.shortcuts) {
-                shortcut.isShowing = true;
-            }
-            this.$nextTick(() => {
-                this.redraw();
-            });
-        },
-        alterOrder(abs, rel) {
-            this.$refs.shortcutBar.unsaved = true;
-            this.$store.commit('reorderShortcuts', { abs, rel });
-            this.$nextTick(() => {
-                this.redraw();
-            });
+            this.redraw();
         },
         redraw() {
-            this.$redrawVueMasonry();
+            this.$nextTick(() => {
+                this.$redrawVueMasonry();
+            });
         }
     }
 }
