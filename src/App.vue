@@ -1,48 +1,63 @@
 <template>
-    <ControlBar @hide="hideAll" @show="showAll"/>
-    <div v-masonry="containerId" transition-duration="0.2s" item-selector=".item">
-        <div v-masonry-tile class="item" v-for="(shortcut, index) in shortcuts" :key="shortcut.order">
-            <Shortcut class="shortcut" @imageLoaded="redraw" @toggleShow="toggleShow(index)" @changeOrder="alterOrder" :isLast="index === shortcuts.length - 1" :link="settings.pdfLink" :shortcut="shortcut"></Shortcut>
+    <header class="top" ref="top">
+        <ControlBar @hide="hideAll" @show="showAll"/>
+    </header>
+    <article class="middle" :style="{'margin-top': topHeight + 'px', 'margin-bottom': bottomHeight + 'px'}">
+        <div v-masonry="containerId" transition-duration="0.2s" item-selector=".item">
+            <div v-masonry-tile class="item" v-for="(shortcut, index) in shortcuts" :key="shortcut.order">
+                <Shortcut class="shortcut" @imageLoaded="redraw" @toggleShow="toggleShow(index)" @changeOrder="alterOrder" :isLast="index === shortcuts.length - 1" :link="settings.pdfLink" :shortcut="shortcut"></Shortcut>
+            </div>
         </div>
-    </div>
+    </article>
+    <footer class="bottom" ref="bottom">
+        <ShortcutBar ref="shortcutBar"/>
+    </footer>
 </template>
 
 <script>
 import Shortcut from './components/shortcut/Shortcut.vue';
 import { mapState } from 'vuex';
 import ControlBar from './components/control-bar/ControlBar.vue';
-
-let shortcuts = require('./data/shortcuts.json');
-for (let i = 0; i < shortcuts.length; i++) {
-    shortcuts[i].order = i;
-    shortcuts[i].isShowing = false;
-}
+import ShortcutBar from './components/shortcut-bar/ShortcutBar.vue';
 
 export default {
     name: 'App',
     components: {
         Shortcut,
-        ControlBar
+        ControlBar,
+        ShortcutBar
     },
     data: function() {
         return {
-            shortcuts
+            topHeight: '0',
+            bottomHeight: '0',
+            unsavedShortcutChanges: false
         }
+    },
+    mounted() {
+        this.updateHeights();
     },
     computed:{
         ...mapState([
             'settings',
-            'globals'
+            'globals',
+            'shortcuts'
         ])
     },
     methods: {
+        updateHeights() {
+            this.topHeight = this.$refs.top.clientHeight;
+            this.bottomHeight = this.$refs.bottom.clientHeight;
+        },
         toggleShow(index) {
+            this.$refs.shortcutBar.unsaved = true;
             this.shortcuts[index].isShowing = !this.shortcuts[index].isShowing;
             this.$nextTick(() => {
                 this.redraw();
             });
         },
         hideAll() {
+            this.$refs.shortcutBar.unsaved = true;
             for (let shortcut of this.shortcuts) {
                 shortcut.isShowing = false;
             }
@@ -51,6 +66,7 @@ export default {
             });
         },
         showAll() {
+            this.$refs.shortcutBar.unsaved = true;
             for (let shortcut of this.shortcuts) {
                 shortcut.isShowing = true;
             }
@@ -59,11 +75,8 @@ export default {
             });
         },
         alterOrder(abs, rel) {
-            let temp = this.shortcuts[abs + rel];
-            this.shortcuts[abs + rel] = this.shortcuts[abs];
-            this.shortcuts[abs + rel].order = abs + rel;
-            this.shortcuts[abs] = temp;
-            this.shortcuts[abs].order = abs;
+            this.$refs.shortcutBar.unsaved = true;
+            this.$store.commit('reorderShortcuts', { abs, rel });
             this.$nextTick(() => {
                 this.redraw();
             });
@@ -81,9 +94,31 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  flex-direction: column;
-  font-size: 5px;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+    background-color: white;
+}
+
+.middle {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 1em;
+}
+
+.bottom {
+    position: fixed;
+    bottom: 0;
+    border-top: solid gainsboro 0.2em;
+    width: 100%;
+    z-index: 2;
+    background-color: white;
 }
 
 .top-bar {

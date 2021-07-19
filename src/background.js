@@ -5,12 +5,14 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import path from 'path';
 import registerPDFEvents from './electron/pdf-events.js';
-import initStore from './electron/settings-store.js';
+import initSettingsStore from './electron/settings-store.js';
+import initDataStore from './electron/data-store.js';
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 registerPDFEvents();
-initStore();
+initSettingsStore();
+initDataStore();
 
 console.log('Store Location:', app.getPath('userData'));
 

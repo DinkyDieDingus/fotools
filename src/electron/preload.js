@@ -8,6 +8,8 @@ contextBridge.exposeInMainWorld(
         }),
         getSetting: (setting) => ipcRenderer.sendSync('get-setting', setting),
         setSetting: (setting, value) => ipcRenderer.send('set-setting', setting, value),
+        getShortcuts: () => ipcRenderer.sendSync('get-data', 'shortcuts'),
+        setShortcuts: (shortcuts) => ipcRenderer.send('set-data', 'shortcuts', shortcuts),
         platform: process.platform
     }
 );
