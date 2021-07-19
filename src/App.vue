@@ -9,8 +9,8 @@
             </div>
         </div>
     </article>
-    <footer class="bottom" ref="bottom">
-        <ShortcutBar ref="shortcutBar"/>
+    <footer class="bottom" :style="{'z-index': bottomZIndex}" ref="bottom">
+        <ShortcutBar ref="shortcutBar" @showOnTop="showBottomOnTop"/>
     </footer>
 </template>
 
@@ -31,7 +31,7 @@ export default {
         return {
             topHeight: '0',
             bottomHeight: '0',
-            unsavedShortcutChanges: false
+            bottomZIndex: 2
         }
     },
     mounted() {
@@ -63,6 +63,14 @@ export default {
         },
         unsavedChange() {
             this.$refs.shortcutBar.unsaved = true;
+        },
+        showBottomOnTop(show) {
+            if (show){
+                this.bottomZIndex = 4;
+            }
+            else {
+                this.bottomZIndex = 2;
+            }
         }
     }
 }
@@ -97,7 +105,6 @@ export default {
     bottom: 0;
     border-top: solid gainsboro 0.2em;
     width: 100%;
-    z-index: 2;
     background-color: white;
 }
 

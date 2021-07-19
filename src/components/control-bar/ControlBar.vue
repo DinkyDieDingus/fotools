@@ -51,6 +51,9 @@ export default {
 </script>
 
 <style scoped>
+body {
+    z-index: 2;
+}
 
 .top-bar {
     display: flex;
