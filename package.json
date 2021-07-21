@@ -13,6 +13,7 @@
         "electron:serve-extra": "mkdir -p dist_electron && cp src/extra/* dist_electron && vue-cli-service electron:serve --mode electron-dev",
         "website:serve": "vue-cli-service serve --mode website-dev",
         "website:build": "vue-cli-service build --mode website",
+        "ratio": "node src/image-ratio.js",
         "postinstall": "electron-builder install-app-deps",
         "postuninstall": "electron-builder install-app-deps"
     },
