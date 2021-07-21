@@ -5,7 +5,7 @@ class ElectronShortcutStore {
 
     load() {
         let saveShortcut = window.electron.getShortcuts();
-        if (saveShortcut === null) {
+        if (saveShortcut === null || saveShortcut === undefined) {
             return this.reset();
         }
 

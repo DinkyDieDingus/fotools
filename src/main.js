@@ -23,6 +23,7 @@ const settingsStore = getSettingsStore(defaultSettings);
 
 // shortcuts store
 const dataStore = getShortcutStore(require('./data/shortcuts.json'));
+console.log(dataStore);
 
 // vuex store
 const store = initStore(globals, settingsStore, dataStore);
