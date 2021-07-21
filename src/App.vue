@@ -1,5 +1,5 @@
 <template>
-    <header class="top" ref="top">
+    <header class="top" :class="{'top-border': globals.isWebsite}" ref="top">
         <ControlBar @hide="setAllShowing(false)" @show="setAllShowing(true)"/>
     </header>
     <article class="middle" :style="{'margin-top': topHeight + 'px', 'margin-bottom': bottomHeight + 'px'}">
@@ -100,6 +100,10 @@ export default {
     padding-bottom: 1em;
 }
 
+.top-border {
+    border-bottom: solid gainsboro 0.2em;
+}
+
 .bottom {
     position: fixed;
     bottom: 0;
@@ -119,26 +123,6 @@ export default {
     padding: 0 0.5em 0 0;
     border-right: solid;
     border-color: gainsboro;
-}
-
-
-.controls-container {
-    display: flex;
-    align-items: center;
-    
-}
-
-.controls-container * {
-    margin: 0.4em;
-}
-
-.shortcut-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    height: 100vh;
-    align-content: flex-start;
-    border: solid;
 }
 
 .shortcut {

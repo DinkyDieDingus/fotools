@@ -7,7 +7,7 @@
             <span v-else>Saved</span>
         </button>
         <div class="right-side">
-            <button class="button is-info is-rounded" :class="{'is-loading': exporting}" @click="exportShortcuts">
+            <button v-if="globals.isElectron" class="button is-info is-rounded" :class="{'is-loading': exporting}" @click="exportShortcuts">
                 <span class="icon"><i class="fas fa-file-export"></i></span>
                 <span>Export</span>
             </button>
