@@ -1,8 +1,8 @@
 <template>
     <p v-if="section.title"><u><b>{{ section.title }}</b></u></p>
-    <div v-if="section.image" class="image-container">
-        <figure :class="`image `">
-            <img @load="loaded" :src='img'/>
+    <div v-if="section.image" class="image-container" :style="{width: imgWidth}">
+        <figure class="image">
+            <img @load="loaded" :src="img"/>
         </figure>
     </div>
     <template v-for="note in section.notes" :key="note">
@@ -45,6 +45,9 @@ export default {
       img() {
           return this.getImagePath(this.section.image);
       },
+      imgWidth() {
+         return this.section.size === 'small' ? '70%' : '90%'; 
+      },
       ...mapState([
             'settings',
             'globals'
@@ -64,7 +67,6 @@ export default {
 }
 
 .image-container {
-    width: 90%;
     margin-left: auto;
     margin-right: auto;
 }
