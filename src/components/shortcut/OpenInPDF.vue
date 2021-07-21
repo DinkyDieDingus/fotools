@@ -28,7 +28,6 @@ export default {
     },
   methods: {
       open() {
-          console.log(this.$store.state.settings)
           window.electron.openPDF(`${this.link}#page=${this.page + 2}`, this.$store.state.settings.browser);
       }
   }

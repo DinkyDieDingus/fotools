@@ -1,75 +1,76 @@
 <template>
-    <ControlBar @hide="hideAll" @show="showAll"/>
-    <div v-masonry="containerId" transition-duration="0.2s" item-selector=".item">
-        <div v-masonry-tile class="item" v-for="(shortcut, index) in shortcuts" :key="shortcut.order">
-            <Shortcut class="shortcut" @imageLoaded="redraw" @toggleShow="toggleShow(index)" @changeOrder="alterOrder" :isLast="index === shortcuts.length - 1" :link="settings.pdfLink" :shortcut="shortcut"></Shortcut>
+    <header class="top" :class="{'top-border': globals.isWebsite}" ref="top">
+        <ControlBar @hide="setAllShowing(false)" @show="setAllShowing(true)"/>
+    </header>
+    <article class="middle" :style="{'margin-top': topHeight + 'px', 'margin-bottom': bottomHeight + 'px'}">
+        <div v-masonry="containerId" transition-duration="0.2s" item-selector=".item">
+            <div v-masonry-tile class="item" v-for="(shortcut, index) in shortcuts" :key="shortcut.order">
+                <Shortcut class="shortcut" :index="index" @redraw="redraw" @change="unsavedChange"></Shortcut>
+            </div>
         </div>
-    </div>
+    </article>
+    <footer class="bottom" :style="{'z-index': bottomZIndex}" ref="bottom">
+        <ShortcutBar ref="shortcutBar" @showOnTop="showBottomOnTop"/>
+    </footer>
 </template>
 
 <script>
 import Shortcut from './components/shortcut/Shortcut.vue';
 import { mapState } from 'vuex';
 import ControlBar from './components/control-bar/ControlBar.vue';
-
-let shortcuts = require('./data/shortcuts.json');
-for (let i = 0; i < shortcuts.length; i++) {
-    shortcuts[i].order = i;
-    shortcuts[i].isShowing = false;
-}
+import ShortcutBar from './components/shortcut-bar/ShortcutBar.vue';
 
 export default {
     name: 'App',
     components: {
         Shortcut,
-        ControlBar
+        ControlBar,
+        ShortcutBar
     },
     data: function() {
         return {
-            shortcuts
+            topHeight: '0',
+            bottomHeight: '0',
+            bottomZIndex: 2
         }
+    },
+    mounted() {
+        this.updateHeights();
     },
     computed:{
         ...mapState([
             'settings',
-            'globals'
+            'globals',
+            'shortcuts'
         ])
     },
     methods: {
-        toggleShow(index) {
-            this.shortcuts[index].isShowing = !this.shortcuts[index].isShowing;
-            this.$nextTick(() => {
-                this.redraw();
-            });
+        updateHeights() {
+            this.topHeight = this.$refs.top.clientHeight;
+            this.bottomHeight = this.$refs.bottom.clientHeight;
         },
-        hideAll() {
-            for (let shortcut of this.shortcuts) {
-                shortcut.isShowing = false;
+        setAllShowing(showing) {
+            this.$refs.shortcutBar.unsaved = true;
+            for (let i = 0; i < this.shortcuts.length; i++) {
+                this.$store.commit('setShortcutShowing', {idx: i, showing});
             }
-            this.$nextTick(() => {
-                this.redraw();
-            });
-        },
-        showAll() {
-            for (let shortcut of this.shortcuts) {
-                shortcut.isShowing = true;
-            }
-            this.$nextTick(() => {
-                this.redraw();
-            });
-        },
-        alterOrder(abs, rel) {
-            let temp = this.shortcuts[abs + rel];
-            this.shortcuts[abs + rel] = this.shortcuts[abs];
-            this.shortcuts[abs + rel].order = abs + rel;
-            this.shortcuts[abs] = temp;
-            this.shortcuts[abs].order = abs;
-            this.$nextTick(() => {
-                this.redraw();
-            });
+            this.redraw();
         },
         redraw() {
-            this.$redrawVueMasonry();
+            this.$nextTick(() => {
+                this.$redrawVueMasonry();
+            });
+        },
+        unsavedChange() {
+            this.$refs.shortcutBar.unsaved = true;
+        },
+        showBottomOnTop(show) {
+            if (show){
+                this.bottomZIndex = 4;
+            }
+            else {
+                this.bottomZIndex = 2;
+            }
         }
     }
 }
@@ -81,9 +82,34 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  flex-direction: column;
-  font-size: 5px;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+    background-color: white;
+}
+
+.middle {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 1em;
+}
+
+.top-border {
+    border-bottom: solid gainsboro 0.2em;
+}
+
+.bottom {
+    position: fixed;
+    bottom: 0;
+    border-top: solid gainsboro 0.2em;
+    width: 100%;
+    background-color: white;
 }
 
 .top-bar {
@@ -97,26 +123,6 @@ export default {
     padding: 0 0.5em 0 0;
     border-right: solid;
     border-color: gainsboro;
-}
-
-
-.controls-container {
-    display: flex;
-    align-items: center;
-    
-}
-
-.controls-container * {
-    margin: 0.4em;
-}
-
-.shortcut-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    height: 100vh;
-    align-content: flex-start;
-    border: solid;
 }
 
 .shortcut {

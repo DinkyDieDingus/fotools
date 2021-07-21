@@ -86,7 +86,6 @@ export default {
 </script>
 
 <style scoped>
-
 .modal-card-foot {
     display: flex;
     justify-content: space-between;

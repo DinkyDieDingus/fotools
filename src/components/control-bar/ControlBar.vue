@@ -51,18 +51,14 @@ export default {
 </script>
 
 <style scoped>
+body {
+    z-index: 2;
+}
 
 .top-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.top-bar-divider {
-    border-bottom: solid 0.5em;
-    margin-bottom: 1em;
-    padding-bottom: 0.5em;
-    border-color: gainsboro;
 }
 
 .selector-container {
