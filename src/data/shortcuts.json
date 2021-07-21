@@ -3,15 +3,15 @@
         "sections": [{
             "page": 20,
             "image": "luck.png",
-            "ratio": "3by2"
+            "ratio": "9by16"
         }]
     },
     {
-        "name": "Hit Locations & Weapon Range",
+        "name": "Hit Locations",
         "sections": [{
             "page": 28,
             "image": "hit-locations.png",
-            "ratio": "16by9"
+            "ratio": "5by3"
         }]
     },
     {
@@ -36,6 +36,41 @@
         ]
     },
     {
+        "name": "Combat",
+        "sections": [{
+                "page": 24
+            },
+            {
+                "title": "Minor Actions",
+                "page": 25
+            },
+            {
+                "title": "Major Actions",
+                "page": 26
+            },
+            {
+                "title": "Making an Attack",
+                "page": 30
+            },
+            {
+                "title": "Damage Effects",
+                "page": 30
+            }
+        ]
+    },
+    {
+        "name": "Damage & Injury",
+        "sections": [{
+            "page": 32
+        }]
+    },
+    {
+        "name": "Environmental Conditions",
+        "sections": [{
+            "page": 38
+        }]
+    },
+    {
         "name": "Weapons",
         "sections": [{
                 "page": 88
@@ -43,6 +78,10 @@
             {
                 "title": "Damage Effects",
                 "page": 88
+            },
+            {
+                "title": "Qualities",
+                "page": 90
             },
             {
                 "title": "Ammunition",
@@ -53,26 +92,98 @@
                 "page": 95
             },
             {
-                "title": "Small Gun Mods",
-                "page": 100
-            },
-            {
                 "title": "Energy Weapons",
                 "page": 101
             },
             {
-                "title": "Enerygy Weapon Mods",
+                "title": "Big Guns",
+                "page": 101
+            },
+            {
+                "title": "Melee Weapons",
+                "page": 111
+            },
+            {
+                "title": "Throwing Weapons",
+                "page": 119
+            }
+        ]
+    },
+    {
+        "name": "Gun Complications",
+        "sections": [{
+                "page": 96,
+                "image": "small-guns-complications.png",
+                "ratio": "9by16",
+                "size": "small"
+            },
+            {
+                "page": 102,
+                "image": "energy-weapons-complications.png",
+                "ratio": "4by5",
+                "size": "small"
+            },
+            {
+                "page": 106,
+                "image": "big-guns-complications.png",
+                "ratio": "2by3",
+                "size": "small"
+            }
+        ]
+    },
+    {
+        "name": "Other Weapons Complications",
+        "sections": [{
+                "page": 112,
+                "image": "melee-weapons-complications.png",
+                "ratio": "2by3",
+                "size": "small"
+            },
+            {
+                "page": 119,
+                "image": "throwing-weapons-complications.png",
+                "ratio": "1by1",
+                "size": "small"
+            },
+            {
+                "page": 120,
+                "image": "explosives-complications.png",
+                "ratio": "9by16",
+                "size": "small"
+            }
+        ]
+    },
+    {
+        "name": "Weapon Mods",
+        "sections": [{
+                "title": "Small Gun Mods",
+                "page": 100
+            },
+            {
+                "title": "Energy Weapon Mods",
                 "page": 104
             }
         ]
     },
     {
-        "name": "Weapon Complications",
+        "name": "Items",
         "sections": [{
-            "page": 96,
-            "image": "small-guns-complications.png",
-            "ratio": "3by5"
-        }]
+                "title": "Armor",
+                "page": 130
+            },
+            {
+                "title": "Consumables",
+                "page": 149
+            },
+            {
+                "title": "Books & Magazines",
+                "page": 172
+            },
+            {
+                "title": "Miscellany",
+                "page": 181
+            }
+        ]
     },
     {
         "name": "Perks",
@@ -94,14 +205,18 @@
         "name": "Mysterious Stranger",
         "sections": [{
             "page": 67,
-            "image": "mysterious-stranger.png"
+            "image": "mysterious-stranger.png",
+            "ratio": "2by3",
+            "size": "small"
         }]
     },
     {
         "name": "Dogmeat",
         "sections": [{
             "page": 63,
-            "image": "dogmeat.png"
+            "image": "dogmeat.png",
+            "ratio": "3by2",
+            "size": "small"
         }]
     },
     {
