@@ -7,12 +7,14 @@ import path from 'path';
 import registerPDFEvents from './electron/pdf-events.js';
 import initSettingsStore from './electron/settings-store.js';
 import initDataStore from './electron/data-store.js';
+import registerFileExport from './electron/file-export.js';
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 registerPDFEvents();
 initSettingsStore();
 initDataStore();
+registerFileExport();
 
 console.log('Store Location:', app.getPath('userData'));
 

@@ -22,10 +22,10 @@ console.log(defaultSettings);
 const settingsStore = getSettingsStore(defaultSettings);
 
 // shortcuts store
-const shortcutStore = getShortcutStore(require('./data/shortcuts.json'));
+const dataStore = getShortcutStore(require('./data/shortcuts.json'));
 
 // vuex store
-const store = initStore(globals, settingsStore, shortcutStore);
+const store = initStore(globals, settingsStore, dataStore);
 
 const emitter = mitt();
 let app = createApp(App);

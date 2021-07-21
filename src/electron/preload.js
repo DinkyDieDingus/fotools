@@ -10,6 +10,9 @@ contextBridge.exposeInMainWorld(
         setSetting: (setting, value) => ipcRenderer.send('set-setting', setting, value),
         getShortcuts: () => ipcRenderer.sendSync('get-data', 'shortcuts'),
         setShortcuts: (shortcuts) => ipcRenderer.send('set-data', 'shortcuts', shortcuts),
+        exportShortcuts: (shortcuts) => ipcRenderer.invoke('export-file', shortcuts).then(result => {
+            return result;
+        }),
         platform: process.platform
     }
 );
